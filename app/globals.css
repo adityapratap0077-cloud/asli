@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-devanagari: var(--font-devanagari);
+  --font-spacemono: var(--font-spacemono);
+}
+
+::selection {
+  background: #f2f2f0;
+  color: #0b0b0d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Slim dark scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a40 transparent;
+}
+
+/* FAQ accordion */
+details.faq > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details.faq > summary::-webkit-details-marker {
+  display: none;
+}
+details.faq[open] > summary .faq-icon {
+  transform: rotate(45deg);
+}
+details.faq > summary .faq-icon {
+  transition: transform 0.2s ease;
+}
+
+/* Range slider */
+input[type="range"].slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: #2a2a30;
+  outline: none;
+}
+input[type="range"].slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #f2f2f0;
+  cursor: pointer;
+}
+input[type="range"].slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 999px;
+  background: #f2f2f0;
+  cursor: pointer;
+}
