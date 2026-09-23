@@ -66,9 +66,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               </Link>
               <Link
                 href="/studio"
-                className="btn-3d rounded-full px-4 py-2 text-sm font-bold"
+                className="btn-solid px-5 py-2.5 text-xs font-semibold uppercase tracking-widest"
               >
-                Start designing
+                Studio
               </Link>
             </nav>
           </div>
@@ -77,7 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1">{children}</main>
 
         <footer className="border-t border-white/10">
-          <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-8 text-sm text-[#8f8f96] sm:flex-row sm:items-center sm:justify-between">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-8 text-sm text-[#8f8f96] sm:flex-row sm:items-center sm:justify-between">
             <p className="font-display tracking-wide text-[#c9c9ce]">
               {BRAND.name}{" "}
               <span className="font-devanagari font-normal text-[#8f8f96]">
