@@ -1,94 +1,60 @@
-# Streetwear Studio — AI Custom Streetwear (Demo)
+<div align="center">
 
-A web app where customers design their own streetwear with AI: pick a
-garment → type a prompt or pick a style preset → AI generates the graphic →
-live mockup preview (change colour, add custom text) → order.
+# ASLI
 
-**Local demo only.** Not pushed to GitHub, not deployed. The user approves
-before anything ships.
+### Wear the real you. — AI custom streetwear, printed on demand in India.
 
-## What was built
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Visit_Site-8E75FF?style=for-the-badge)](https://asli-delta.vercel.app/)
+[![Deploy](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel)](https://asli-delta.vercel.app/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-- `/` — Landing: hero, "Design your own drop" pitch, 3-step how-it-works,
-  drops teaser, FAQ, footer. Dark streetwear aesthetic.
-- `/studio` — The designer (core): product picker (Oversized Tee / Regular
-  Tee / Hoodie, hand-drawn SVG templates), 4 colour variants, prompt box +
-  5 style preset chips, custom text layer (Devanagari-capable font, size
-  slider, 3 position presets), live mockup with print-style blending,
-  regenerate, PNG preview download, order button.
-- `/gallery` — Pre-made drops grid (6 AI-generated designs); each opens in
-  the studio.
-- `/checkout` — Order flow with **Manual UPI** (for Indian buyers:
-  placeholder UPI ID/QR area, customer enters their 12-digit UTR) and
-  **PayPal** (for international buyers: "Pay with PayPal" button to a
-  configurable PayPal.Me link, customer enters PayPal transaction ID +
-  payer email). Both end at an honest "order received, payment pending
-  verification" state — no fake "payment successful" screens. Orders are
-  saved to localStorage in this demo.
-- `/api/generate` — POST `{ prompt, stylePreset, seed }`. Default provider
-  is **Pollinations.ai (free, keyless)**; the client falls back to bundled
-  sample artwork if the remote image fails to load. Optional `FAL_KEY`
-  upgrade path to fal.ai is stubbed in the route.
+</div>
 
-Tech: Next.js 16 (App Router) + TypeScript + Tailwind CSS v4, structured
-for later Vercel deployment.
+---
 
-## How to run
+ASLI (असली — "real/authentic") is an AI-powered custom streetwear studio. Pick a garment, describe your graphic or tap a style preset, and AI generates the artwork free in seconds. Preview it live on the mockup in your color and size, add custom Hindi/English text, then order. Print-on-demand fulfillment across India via Qikink — zero inventory, designed-by-you premium pricing.
+
+## ✨ Features
+
+- AI artwork studio — free keyless generation with 5 curated style presets (Desi Hip-Hop, Anime Ink, Minimal Line, Hindi Typography, Dark Gothic)
+- Live garment mockup with print-style blending, per-product colors, custom Devanagari-capable text layer
+- PNG mockup download straight from the studio
+- Manual UPI (India) + PayPal (international) checkout with honest payment-pending states — no fake success screens
+- Supabase-backed orders with a localStorage fallback that never silently loses an order
+- Owner dashboard: verify payments, forward to Qikink, track print status
+- Real Qikink integration — sandbox-verified token + order-create pipeline, SKU-mapped products
+- Content moderation on every generation + human review before anything prints
+
+<!-- ## 📸 Screenshots
+Add screenshots here: ![screenshot](docs/screenshot-1.png)
+-->
+
+## 🛠️ Tech Stack
+
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge) ![Tailwind CSS](https://img.shields.io/badge/Tailwind+CSS-38BDF8?style=for-the-badge) ![Supabase](https://img.shields.io/badge/Supabase-8E75FF?style=for-the-badge) ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge) ![Qikink API](https://img.shields.io/badge/Qikink+API-8E75FF?style=for-the-badge)
+
+## 🚀 Getting Started
 
 ```bash
-cd ~/workspace/streetwear-studio
+git clone https://github.com/adityapratap0077-cloud/asli.git
+cd asli
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # production build check
+npm run dev
 ```
 
-## Product decisions baked in
+## 📦 Deploy
 
-1. **AI generation is 100% free via Pollinations.ai** — no key, no signup.
-   `GET https://image.pollinations.ai/prompt/{prompt}?width=1024&height=1024&nologo=true&model=flux`.
-   Bundled sample designs are the instant fallback. `FAL_KEY` is an
-   optional future upgrade to fal.ai, not required.
-2. **No payment gateway at launch** (owner cannot do video KYC right now).
-   Two manual methods, both verified by hand:
-   - **Manual UPI** (Indian buyers): customer pays to the owner's UPI ID
-     shown at checkout, enters their 12-digit UTR; order is marked
-     "payment pending verification" until the owner confirms it.
-   - **PayPal** (international buyers): a "Pay with PayPal" button links to
-     the owner's PayPal.Me URL; the customer pays on PayPal, then enters
-     their PayPal transaction ID + payer email so the owner can match the
-     payment. PayPal cannot take UPI or domestic INR payments, so it is
-     explicitly labelled for international orders.
-   Razorpay — which would cover UPI + domestic/international cards +
-   PayPal wallet in one checkout — is deferred to later, when volume
-   justifies the KYC. (Standalone PayPal was considered and kept only as
-   the manual international option: no UPI/domestic INR, 5–8% effective
-   cost.)
+Push to `main` — Vercel auto-deploys production.
 
-## Env vars
+## 👤 Author
 
-| Var | Required | Purpose |
-| --- | -------- | ------- |
-| `FAL_KEY` | No | Optional upgrade: route `/api/generate` through fal.ai instead of free Pollinations |
-| `NEXT_PUBLIC_OWNER_UPI_ID` | Before launch | Real UPI ID shown at checkout (currently a labelled placeholder) |
-| `NEXT_PUBLIC_PAYPAL_ME_URL` | Before launch | Owner's PayPal.Me link for the "Pay with PayPal" button (currently a labelled placeholder). **The owner must create a PayPal business account and supply their PayPal.Me link before launch** |
-| `QIKINK_API_KEY` | Later | Auto-push confirmed orders to Qikink's API (currently manual via their dashboard) |
-| `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET` | Later | Online payments, when volume justifies KYC |
+**Aditya Pratap** — Creative Technologist
 
-## What's stubbed / unresolved
+- 🌐 Portfolio: https://my-portfolio-khaki-gamma-94.vercel.app/
+- 💼 LinkedIn: https://www.linkedin.com/in/adityapratap0077/
+- 🐙 GitHub: https://github.com/adityapratap0077-cloud
+- 📧 Email: adityapratap0077@gmail.com
 
-- **Payments:** Manual UPI + PayPal only, both hand-verified. No gateway,
-  no webhooks, no automatic charging.
-- **PayPal.Me link:** placeholder until the owner creates a PayPal business
-  account and supplies their real link via `NEXT_PUBLIC_PAYPAL_ME_URL`.
-- **UPI QR/ID:** placeholder box until the owner provides their real UPI ID
-  via `NEXT_PUBLIC_OWNER_UPI_ID`.
-- **Fulfillment:** Qikink has an open API and supports custom/API orders,
-  but wiring is manual for now — confirmed orders are placed through the
-  Qikink dashboard until `QIKINK_API_KEY` is set.
-- **Order storage:** demo uses browser localStorage (`ss-orders`). Needs a
-  real database before launch.
-- **fal.ai:** stubbed (`generateWithFal` returns null); free Pollinations
-  path is the default.
-- **UPI QR:** placeholder box until the owner provides their real UPI ID.
-- The mockup is a front-view flat template; back-print view is not
-  implemented yet.
+## 📄 License
+
+MIT © Aditya Pratap
