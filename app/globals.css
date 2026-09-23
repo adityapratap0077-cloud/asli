@@ -22,6 +22,186 @@ html {
   scrollbar-color: #3a3a40 transparent;
 }
 
+/* ---- 3D embossed system ---- */
+
+/* Tactile 3D button: hard offset shadow that compresses on press */
+.btn-3d {
+  background: #f2f2f0;
+  color: #0b0b0d;
+  border: 1px solid #000;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.85), 5px 5px 24px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+}
+.btn-3d:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.85), 3px 3px 18px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
+}
+.btn-3d:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.85);
+}
+
+/* Dark 3D card: deep layered shadow + top inner highlight */
+.card-3d {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 30px 60px -24px rgba(0, 0, 0, 0.9),
+    0 12px 24px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* Print-bed: recessed panel with inner depth */
+.bed-3d {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 2px 18px rgba(0, 0, 0, 0.75),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 24px 60px -30px rgba(0, 0, 0, 0.9);
+}
+
+/* Sticker chip that floats above the card */
+.sticker {
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8), 0 10px 24px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+/* Glass bar */
+.glass {
+  background: rgba(16, 16, 20, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 3D tilt scene */
+.tilt-scene {
+  perspective: 1200px;
+}
+.tilt-inner {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-pop {
+  transform: translateZ(55px);
+}
+.tilt-pop-sm {
+  transform: translateZ(30px);
+}
+
+/* Glow orbs for depth */
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+/* Tactile segmented control */
+.seg-btn {
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.seg-btn[data-active="true"] {
+  background: #f2f2f0;
+  color: #0b0b0d;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35), 0 4px 14px rgba(0, 0, 0, 0.5);
+  transform: translateY(1px);
+}
+
+/* ---- ASLI visual system ---- */
+
+/* Outlined display type */
+.text-stroke {
+  -webkit-text-stroke: 2px #f2f2f0;
+  color: transparent;
+}
+.text-stroke-thin {
+  -webkit-text-stroke: 1.5px #f2f2f0;
+  color: transparent;
+}
+@media (max-width: 640px) {
+  .text-stroke {
+    -webkit-text-stroke-width: 1.5px;
+  }
+}
+
+/* Marquee ticker */
+@keyframes asli-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: asli-marquee 24s linear infinite;
+}
+.animate-marquee-fast {
+  animation: asli-marquee 14s linear infinite;
+}
+
+/* Dotted design-tool grid */
+.bg-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Film grain overlay */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Generating shimmer */
+@keyframes asli-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.generating {
+  background-image: linear-gradient(
+    100deg,
+    #f2f2f0 30%,
+    #b9b9bd 45%,
+    #f2f2f0 60%
+  );
+  background-size: 200% 100%;
+  animation: asli-shimmer 1.4s linear infinite;
+  color: #0b0b0d;
+}
+
+/* Live dot pulse */
+@keyframes asli-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.live-dot {
+  animation: asli-pulse 1.6s ease-in-out infinite;
+}
+
+/* Card lift */
+.lift {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.lift:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 18px 50px -18px rgba(0, 0, 0, 0.8);
+}
+
 /* FAQ accordion */
 details.faq > summary {
   list-style: none;
