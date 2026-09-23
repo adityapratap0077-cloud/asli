@@ -7,12 +7,12 @@ import Mockup from "@/components/Mockup";
 import { downloadMockup } from "@/lib/download";
 import {
   PRODUCTS,
-  COLORS,
   SIZES,
   STYLE_PRESETS,
   TEXT_FONTS,
   TEXT_POSITIONS,
   productById,
+  productColors,
   colorById,
   presetById,
   formatINR,
@@ -34,7 +34,7 @@ function StudioInner() {
   const initialDesign = params.get("design");
 
   const [productId, setProductId] = useState<ProductId>("oversized");
-  const [colorId, setColorId] = useState("black");
+  const [colorId, setColorId] = useState("white");
   const [size, setSize] = useState<SizeId>("M");
   const [presetId, setPresetId] = useState("desi-hiphop");
   const [prompt, setPrompt] = useState("");
@@ -53,7 +53,16 @@ function StudioInner() {
   const [downloading, setDownloading] = useState(false);
 
   const product = productById(productId);
+  const availableColors = productColors(product);
   const color = colorById(colorId);
+
+  const pickProduct = (id: ProductId) => {
+    setProductId(id);
+    const colors = productColors(productById(id));
+    if (!colors.some((c) => c.id === colorId)) {
+      setColorId(colors[0].id);
+    }
+  };
   const preset = presetById(presetId);
   const font = TEXT_FONTS.find((f) => f.id === fontId) ?? TEXT_FONTS[0];
 
@@ -143,7 +152,7 @@ function StudioInner() {
               {PRODUCTS.map((p) => (
                 <button
                   key={p.id}
-                  onClick={() => setProductId(p.id)}
+                  onClick={() => pickProduct(p.id)}
                   className={`rounded-xl border p-3 text-left transition ${
                     productId === p.id
                       ? "border-white bg-white/10"
@@ -183,7 +192,7 @@ function StudioInner() {
           <div>
             <SectionLabel>02 — Colour</SectionLabel>
             <div className="mt-3 flex gap-3">
-              {COLORS.map((c) => (
+              {availableColors.map((c) => (
                 <button
                   key={c.id}
                   title={c.label}

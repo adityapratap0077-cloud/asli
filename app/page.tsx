@@ -7,7 +7,7 @@ const STEPS = [
   {
     n: "01",
     title: "Pick your garment",
-    body: "Oversized tee, regular tee, or hoodie — in black, white, cream, or navy.",
+    body: "Oversized tee, regular tee, or hoodie — in black, white, or navy.",
   },
   {
     n: "02",

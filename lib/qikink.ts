@@ -22,8 +22,10 @@
  *   QIKINK_PRINT_TYPE_ID — default 17 (DTF). See docs enum:
  *                      1=DTG, 17=DTF, 3=Embroidery, etc.
  *   QIKINK_PRODUCT_MAP — JSON keyed "<productId>[:<color>[:<size>]]":
- *     { "oversized:black:XL": { "sku": "OVTs-Blk-XL", "placement": "front" },
- *       "oversized":           { "sku": "OVTs-Blk-M",  "placement": "front" } }
+ *     { "oversized:white": { "sku": "OsJsRnHs-Wh-{size}", "placement": "front" },
+ *       "hoodie:black:XL": { "sku": "PuHd-Bl-XL", "placement": "front" } }
+ *   "{size}" is interpolated at resolve time. Entries here override the
+ *   built-in defaults (real Qikink SKUs, verified 2026-09-23).
  *     Keys with color+size win; plain product id is the fallback.
  *   NEXT_PUBLIC_SITE_URL — used to absolutize local artwork paths
  */
@@ -186,11 +188,25 @@ export interface QikinkProductMapping {
 }
 
 function defaultProductMap(): Record<string, QikinkProductMapping> {
-  const map: Record<string, QikinkProductMapping> = {};
-  for (const p of PRODUCTS) {
-    map[p.id] = { sku: "", placement: "front" };
-  }
-  return map;
+  // Verified 2026-09-23 from qikink.com product pages (the "sku" field in
+  // each page's JSON-LD Product block):
+  //   Oversized Tee  -> "Oversized Jersey T-Shirt | UJ35" (OsJsRnHs, White only)
+  //   Regular Tee    -> "Male Standard Crew T-Shirt | US21" (StRnHs, White/Black)
+  //   Hoodie         -> "Pullover Hoodie | UH83" (PuHd, Black/White/Navy/Off White)
+  // Variant SKUs follow Qikink's base-color-size pattern ("MVnHs-Wh-S" in
+  // their own API docs). "Wh" is confirmed by that example; "Bl" / "Nv"
+  // are the pattern-consistent abbreviations — verify them against the
+  // seller dashboard's "My Products" page before fulfilling real orders
+  // and override via QIKINK_PRODUCT_MAP if they differ.
+  // "{size}" is interpolated at resolve time (S/M/L/XL/XXL).
+  return {
+    "oversized:white": { sku: "OsJsRnHs-Wh-{size}", placement: "front" },
+    "regular:white": { sku: "StRnHs-Wh-{size}", placement: "front" },
+    "regular:black": { sku: "StRnHs-Bl-{size}", placement: "front" },
+    "hoodie:black": { sku: "PuHd-Bl-{size}", placement: "front" },
+    "hoodie:white": { sku: "PuHd-Wh-{size}", placement: "front" },
+    "hoodie:navy": { sku: "PuHd-Nv-{size}", placement: "front" },
+  };
 }
 
 export function qikinkProductMap(): Record<string, QikinkProductMapping> {
@@ -211,7 +227,8 @@ export function qikinkProductMap(): Record<string, QikinkProductMapping> {
 
 /**
  * Most specific key wins: "product:color:size" -> "product:color" -> "product".
- * Colors are normalized to lowercase; sizes uppercased.
+ * Colors are normalized to lowercase; sizes uppercased. A "{size}" token in
+ * the mapped SKU is replaced with the resolved size.
  */
 export function resolveQikinkProduct(
   productId: string,
@@ -221,12 +238,13 @@ export function resolveQikinkProduct(
   const map = qikinkProductMap();
   const c = (color || "").toLowerCase().replace(/\s+/g, "");
   const s = (size || "M").toUpperCase();
-  return (
+  const found =
     map[`${productId}:${c}:${s}`] ??
     map[`${productId}:${c}`] ??
     map[productId] ??
-    null
-  );
+    null;
+  if (!found) return null;
+  return { ...found, sku: found.sku.replace("{size}", s) };
 }
 
 // ---------------------------------------------------------------------------

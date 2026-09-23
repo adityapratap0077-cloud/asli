@@ -12,6 +12,8 @@ export interface Product {
   name: string;
   blurb: string;
   price: number;
+  /** Color ids this product can actually be fulfilled in (Qikink stock). */
+  colors: string[];
 }
 
 export const PRODUCTS: Product[] = [
@@ -20,18 +22,24 @@ export const PRODUCTS: Product[] = [
     name: "Oversized Tee",
     blurb: "Drop shoulders, boxy fit. The streetwear staple.",
     price: 949,
+    // Qikink "Oversized Jersey T-Shirt | UJ35" (OsJsRnHs) — White only.
+    colors: ["white"],
   },
   {
     id: "regular",
     name: "Regular Tee",
     blurb: "Classic everyday fit, clean silhouette.",
     price: 949,
+    // Qikink "Male Standard Crew T-Shirt | US21" (StRnHs) — White + Black.
+    colors: ["black", "white"],
   },
   {
     id: "hoodie",
     name: "Hoodie",
     blurb: "Heavyweight fleece, kangaroo pocket.",
     price: 1299,
+    // Qikink "Pullover Hoodie | UH83" (PuHd) — Black, White, Off White, Navy.
+    colors: ["black", "white", "navy"],
   },
 ];
 
@@ -142,6 +150,11 @@ export function productById(id: string): Product {
 
 export function colorById(id: string): ShirtColor {
   return COLORS.find((c) => c.id === id) ?? COLORS[0];
+}
+
+/** Colors a product can actually be fulfilled in. */
+export function productColors(p: Product): ShirtColor[] {
+  return p.colors.map(colorById);
 }
 
 export function presetById(id: string): StylePreset {

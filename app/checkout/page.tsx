@@ -6,6 +6,7 @@ import Link from "next/link";
 import Mockup from "@/components/Mockup";
 import {
   productById,
+  productColors,
   colorById,
   isValidSize,
   TEXT_FONTS,
@@ -71,7 +72,11 @@ const inputCls =
 function CheckoutInner() {
   const params = useSearchParams();
   const product = productById(params.get("product") ?? "oversized");
-  const color = colorById(params.get("color") ?? "black");
+  const paramColor = params.get("color") ?? "";
+  const validColors = productColors(product);
+  const color = colorById(
+    validColors.some((c) => c.id === paramColor) ? paramColor : validColors[0].id
+  );
   const sizeParam = (params.get("size") ?? "M").toUpperCase();
   const size = isValidSize(sizeParam) ? sizeParam : "M";
   const designSrc = params.get("design") ?? "";
