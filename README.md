@@ -1,13 +1,13 @@
 <div align="center">
 
 # ASLI
-### असली — Wear the real you. — AI custom streetwear, printed on demand in India
+### असली · Wear the real you: AI custom streetwear, printed on demand in India
 
 ![ASLI](https://img.shields.io/badge/ASLI-2026-%23F2F0EB?style=for-the-badge&labelColor=%23060608)
 ![Status](https://img.shields.io/badge/STATUS-LIVE-%237A1212?style=for-the-badge&labelColor=%23060608)
 ![License](https://img.shields.io/badge/License-MIT-%23060608?style=for-the-badge)
 
-**AI custom streetwear — made in India**
+**AI custom streetwear: made in India**
 
 [Live Site](https://asli-delta.vercel.app/) • [Studio](https://asli-delta.vercel.app/studio) • [Gallery](https://asli-delta.vercel.app/gallery) • [GitHub](https://github.com/adityapratap0077-cloud)
 
@@ -15,19 +15,19 @@
 
 ---
 
-ASLI (असली — "real, authentic") is a prompt-to-print streetwear studio. Pick a garment, describe your graphic or tap a style preset, and AI draws the artwork free in seconds. Preview it live on the garment in your color and size, add custom Hindi or English text, then order. Printed on demand in India — one piece, one of one.
+ASLI (असली, "real, authentic") is a prompt-to-print streetwear studio. Pick a garment, describe your graphic or tap a style preset, and AI draws the artwork free in seconds. Preview it live on the garment in your color and size, add custom Hindi or English text, then order. Printed on demand in India, one piece, one of one.
 
 ## Screenshots
 
 <div align="center">
 
-![ASLI — Landing hero](readme/hero.png)
+![ASLI: Landing hero](readme/hero.png)
 
-*Landing — "WEAR THE REAL YOU" typographic hero, AI custom streetwear*
+*Landing: "WEAR THE REAL YOU" typographic hero, AI custom streetwear*
 
-![ASLI — Studio](readme/studio.png)
+![ASLI: Studio](readme/studio.png)
 
-*Studio — garment picker, live mockup preview, style presets*
+*Studio: garment picker, live mockup preview, style presets*
 
 </div>
 
@@ -39,22 +39,22 @@ ASLI (असली — "real, authentic") is a prompt-to-print streetwear studio
 prompt → AI artwork → live garment mockup → manual UPI / PayPal order → Qikink print-on-demand
 ```
 
-1. **Describe** — type a prompt ("desi hip-hop lion with Hindi lettering") or tap a style preset.
-2. **Generate** — the AI draws the graphic free, in seconds, unlimited tries. Content moderation runs on every generation.
-3. **Preview** — the live mockup shows the print on your garment in the exact color and size, with print-style blending and a custom Devanagari-capable text layer. Download the PNG mockup straight from the studio.
-4. **Order** — pay manually via UPI (India) or PayPal (international). Orders land in Supabase with a localStorage fallback, so no order is ever silently lost.
-5. **Print** — the owner verifies each payment by hand, forwards the order to Qikink, and the piece is printed only after you order. Nothing is pre-printed, nothing fake.
+1. **Describe**: type a prompt ("desi hip-hop lion with Hindi lettering") or tap a style preset.
+2. **Generate**: the AI draws the graphic free, in seconds, unlimited tries. Content moderation runs on every generation.
+3. **Preview**: the live mockup shows the print on your garment in the exact color and size, with print-style blending and a custom Devanagari-capable text layer. Download the PNG mockup straight from the studio.
+4. **Order**: pay manually via UPI (India) or PayPal (international). Orders land in Supabase with a localStorage fallback, so no order is ever silently lost.
+5. **Print**: the owner verifies each payment by hand, forwards the order to Qikink, and the piece is printed only after you order. Nothing is pre-printed, nothing fake.
 
 ## Features
 
-- **AI artwork studio** — free generation with 5 curated style presets: Desi Hip-Hop, Anime Ink, Minimal Line, Hindi Typography, Dark Gothic
-- **Live garment mockup** — per-product colors matched to real printer stock, size picker, custom Hindi/English text layer, PNG download
-- **Starter gallery** — "Fresh Drops" from the vault; open any in the studio and make it yours
-- **Honest manual payments** — UPI for India, PayPal for international; payment-pending states, no fake success screens
-- **Owner dashboard** — verify payments, forward orders to Qikink, track print status
-- **Real Qikink integration** — sandbox-verified token + order-create pipeline, SKU-mapped products, DTF print
-- **Moderation + human review** — generation blocklist on every prompt; nothing prints without a human sign-off
-- **Polices page** — shipping, returns, and honest pricing terms in plain language
+- **AI artwork studio**: free generation with 5 curated style presets: Desi Hip-Hop, Anime Ink, Minimal Line, Hindi Typography, Dark Gothic
+- **Live garment mockup**: per-product colors matched to real printer stock, size picker, custom Hindi/English text layer, PNG download
+- **Starter gallery**: "Fresh Drops" from the vault; open any in the studio and make it yours
+- **Honest manual payments**: UPI for India, PayPal for international; payment-pending states, no fake success screens
+- **Owner dashboard**: verify payments, forward orders to Qikink, track print status
+- **Real Qikink integration**: sandbox-verified token + order-create pipeline, SKU-mapped products, DTF print
+- **Moderation + human review**: generation blocklist on every prompt; nothing prints without a human sign-off
+- **Polices page**: shipping, returns, and honest pricing terms in plain language
 
 ## Pricing
 
@@ -66,13 +66,13 @@ AI design is free, forever. You pay for the garment and the print.
 | Regular Tee | Classic everyday fit | ₹949 |
 | Hoodie | Heavyweight fleece, kangaroo pocket | ₹1,299 |
 
-Prices are set in `lib/catalog.ts` and matched to real Qikink SKUs — colors are restricted to what the printer actually stocks.
+Prices are set in `lib/catalog.ts` and matched to real Qikink SKUs, colors are restricted to what the printer actually stocks.
 
 ---
 
 ## Design System
 
-Minimal monochrome — the type does the talking.
+Minimal monochrome: the type does the talking.
 
 ### Color Palette
 
@@ -87,9 +87,9 @@ Minimal monochrome — the type does the talking.
 
 ### Typography
 
-- **Display:** oversized uppercase type, solid + outline treatments — WEAR THE REAL YOU
-- **Mono:** tracked-out labels — `01 — PROCESS`, `PRINT-AREA PREVIEW`, numbered sections
-- **Script accent:** Devanagari — `अपना डिज़ाइन। असली तुम।`
+- **Display:** oversized uppercase type, solid + outline treatments: WEAR THE REAL YOU
+- **Mono:** tracked-out labels: `01 — PROCESS`, `PRINT-AREA PREVIEW`, numbered sections
+- **Script accent:** Devanagari: `अपना डिज़ाइन। असली तुम।`
 
 ---
 
@@ -112,14 +112,14 @@ Payment credentials are env-overridable (`NEXT_PUBLIC_OWNER_UPI_ID`, `NEXT_PUBLI
 
 ## Deploy
 
-Push to `main` — Vercel auto-deploys production.
+Push to `main`: Vercel auto-deploys production.
 
 ---
 
 ## Author
 
-**Aditya Pratap** — Creative Technologist
-Gorakhpur, India — github.com/adityapratap0077-cloud
+**Aditya Pratap** · Creative Technologist
+Gorakhpur, India · github.com/adityapratap0077-cloud
 
 ## License
 
